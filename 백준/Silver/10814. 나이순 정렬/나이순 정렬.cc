@@ -8,22 +8,18 @@ struct Data
 {
 	int age;
 	string name;
-	int order;
 
-	Data(int a, string b, int idx)
+	Data(int a, string b)
 	{
 		age = a;
 		name = b;
-		order = idx;
 	}
-
-	bool operator<(const Data& b) const
-	{
-		if (age == b.age) return order < b.order;
-		else if (age != b.age) return age < b.age;
-	}
-
 };
+
+bool cmp(const Data& a, const Data& b)
+{
+	return a.age < b.age;
+}
 
 int main()
 {
@@ -40,10 +36,10 @@ int main()
 		int a;
 		string s;
 		cin >> a >> s;
-		vec.push_back(Data(a, s, i));
+		vec.push_back(Data(a, s));
 	}
 
-	sort(vec.begin(), vec.end());
+	stable_sort(vec.begin(), vec.end(), cmp);
 
 	for (int i = 0; i < n; i++)
 	{
