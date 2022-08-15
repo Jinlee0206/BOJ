@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int n, m;
+vector<int> vec;
+int ch[9] = { false };
+vector<int> res;
+
+void Print()
+{
+	for (int i = 0; i < m; i++)
+	{
+		cout << res[i] << " ";
+	}
+	cout << "\n";
+	return;
+}
+
+void DFS(int lv)
+{
+	if (lv == m)
+	{
+		Print();
+		return;
+	}
+	else
+	{
+		for (int i = 0; i < n; i++)
+		{
+			if (ch[i]) continue;
+			
+			ch[i] = true;
+			res.push_back(vec[i]);
+			DFS(lv + 1);
+			res.pop_back();
+			ch[i] = false;
+		}
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
+	cin >> n >> m;
+
+	for (int i = 0; i < n; i++)
+	{
+		int a;
+		cin >> a;
+		vec.push_back(a);
+	}
+
+	sort(vec.begin(), vec.end());
+
+	DFS(0);
+
+	return 0;
+}
