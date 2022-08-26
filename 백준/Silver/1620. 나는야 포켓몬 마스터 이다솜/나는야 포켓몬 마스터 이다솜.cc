@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <string>
 #include <map>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,15 +14,15 @@ int main()
 	int n, m;
 	cin >> n >> m;
 
-	map<string, int> mapset;
-	vector<string> name;
+	map<string, int> poketmon;
+	vector <string> poketmon_num(n+1);
 
 	for (int i = 1; i <= n; i++)
 	{
 		string str;
 		cin >> str;
-		name.push_back(str);
-		mapset.insert({str, i});
+		poketmon[str] = i;
+		poketmon_num[i] = str;
 	}
 
 	for (int i = 0; i < m; i++)
@@ -33,14 +33,12 @@ int main()
 
 		if (isdigit(str[0]))
 		{
-			n = stoi(str) - 1;
-			cout << name[n] << "\n";
+			n = stoi(str);
+			cout << poketmon_num[n] << "\n";
 		}
-		else
-		{
-			cout << mapset[str] << "\n";
-		}
+		else cout << poketmon[str] << "\n";
 	}
+
 
 	return 0;
 }
