@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <stack>
-#include <string>
 #include <algorithm>
+#include <string>
+#include <stack>
 
 using namespace std;
 
@@ -16,33 +16,29 @@ int main()
 		string str;
 		getline(cin, str);
 
+		if (str == ".") break;
+
 		stack<char> stk;
-		bool ans = true;
+		bool flag = true;
 
-		if (str.length() == 1 && str == ".") break;
-
-		for (int i = 0; i < str.size(); i++)
+		for (int i = 0; i < str.length(); i++)
 		{
-			if (str[i] == '(' || str[i] == '[')
-			{
-				stk.push(str[i]);
-			}
-
+			if (str[i] == '(' || str[i] == '[') stk.push(str[i]);
+			
 			if (str[i] == ')')
 			{
-				if (stk.empty() || stk.top() == '[') ans = false;
+				if (stk.empty() || stk.top() == '[') flag = false;
 				else stk.pop();
 			}
 
 			if (str[i] == ']')
 			{
-				if (stk.empty() || stk.top() == '(') ans = false;
+				if (stk.empty() || stk.top() == '(') flag = false;
 				else stk.pop();
 			}
 		}
-
-		if (stk.empty() && ans) cout << "yes" << "\n";
-		else cout << "no" << "\n";
+		if (flag && stk.empty()) cout << "yes" << "\n";
+		else cout << "no\n";
 	}
 
 	return 0;
