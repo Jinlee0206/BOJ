@@ -1,45 +1,50 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 #include <stack>
 
 using namespace std;
 
 int main()
 {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
 	int n;
 	cin >> n;
 
-	stack<char>s;
+	stack<char> stk;
 
-	bool isCorrect = true;
+	bool flag;
 
 	for (int i = 0; i < n; i++)
 	{
+		flag = true;
 		string str;
 		cin >> str;
-		isCorrect = true;
 
 		for (int j = 0; j < str.size(); j++)
 		{
-			if (str[j] == '(') s.push(str[i]);
-			else 
+			if (str[j] == '(') stk.push(str[j]);
+			else
 			{
-				if (s.empty())
+				if (stk.empty())
 				{
 					cout << "NO" << "\n";
-					isCorrect = false;
+					flag = false;
 					break;
 				}
-				else s.pop();
+				else stk.pop();
 			}
 		}
-		
-		if (s.empty() && isCorrect == true) cout << "YES" << "\n";
-		else if (!s.empty() && isCorrect == true) cout << "NO" << "\n";
 
-		while (!s.empty()) s.pop();
+		if (stk.empty() && flag == true) cout << "YES" << "\n";
+		else if (!stk.empty() && flag == true) cout << "NO" << "\n";
+
+		while (!stk.empty()) stk.pop();
 	}
+
 
 	return 0;
 }
