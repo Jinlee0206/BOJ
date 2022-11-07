@@ -1,45 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <algorithm>
 
 using namespace std;
 
-int m, s[21], a;
-
-void add(int a)
-{
-	if(s[a] != 1) s[a] = 1;
-	else return;
-}
-
-void remove(int a)
-{
-	if (s[a] != 0) s[a] = 0;
-	else return;
-}
-
-void check(int a)
-{
-	cout << s[a] << "\n";
-	return;
-}
-
-void toggle(int a)
-{
-	if (s[a] != 0) s[a] = 0;
-	else s[a] = 1;
-	return;
-}
-
-void all()
-{
-	fill(s, s + 21, 1);
-}
-
-void empty()
-{
-	fill(s, s + 21, 0);
-}
+int n, m, x;
+string s;
 
 int main()
 {
@@ -50,37 +17,30 @@ int main()
 
 	for (int i = 0; i < m; i++)
 	{
-		string str;
-		cin >> str;
+		cin >> s;
 
-		if (str == "add")
+		if (s[0] == 'a' && s[1] == 'd')
 		{
-			cin >> a;
-			add(a);
+			cin >> x;
+			n |= (1 << x);
 		}
-		else if (str == "remove")
+		else if (s[0] == 'r')
 		{
-			cin >> a;
-			remove(a);
+			cin >> x;
+			n &= ~(1 << x);
 		}
-		else if (str == "check")
+		else if (s[0] == 'c')
 		{
-			cin >> a;
-			check(a);
+			cin >> x;
+			cout << ((n & (1 << x)) == 0 ? 0 : 1) << "\n";
 		}
-		else if (str == "toggle")
+		else if (s[0] == 't')
 		{
-			cin >> a;
-			toggle(a);
+			cin >> x;
+			n ^= (1 << x);
 		}
-		else if (str == "all")
-		{
-			all();
-		}
-		else if (str == "empty")
-		{
-			empty();
-		}
+		else if (s[0] == 'a' && s[1] == 'l') n = (1 << 21) - 1;
+		else n = 0;
 	}
 
 	return 0;
