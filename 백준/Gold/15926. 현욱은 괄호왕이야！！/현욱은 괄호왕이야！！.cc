@@ -17,24 +17,19 @@ int main()
 
 	cin >> n >> s;
 
+	stk.push(-1);
 	for (int i = 0; i < n; i++)
 	{
 		if (s[i] == '(') stk.push(i);
-		else if (stk.size())
+		if (s[i] == ')')
 		{
-			d[i] = d[stk.top()] = 1;
 			stk.pop();
+			if (!stk.empty())
+			{
+				res = max(res, i - stk.top());
+			}
+			else stk.push(i);
 		}
-	}
-
-	for (int i = 0; i < n; i++)
-	{
-		if (d[i])
-		{
-			cnt++;
-			res = max(res, cnt);
-		}
-		else cnt = 0;
 	}
 
 	cout << res << "\n";
