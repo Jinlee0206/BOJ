@@ -4,45 +4,54 @@
 
 using namespace std;
 
-vector<bool> isPrime;
-vector<int> prime;
+int n;
+vector<int> pn;
+bool ch[4000001];
+
+void makePN(int a)
+{
+	for (int i = 2; i * i <= a; i++)
+	{
+		if (ch[i]) continue;
+		for (int j = 2 * i; j <= a; j += i)
+		{
+			ch[j] = true;
+		}
+	}
+
+	for (int i = 2; i <= a; i++) if (!ch[i]) pn.push_back(i);
+
+	return;
+}
+
 
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	int n;
 	cin >> n;
 
-	isPrime.resize(n + 1, true);
+	makePN(n);
+	
+	//for (int i = 0; i < pn.size(); i++)
+	//{
+	//	cout << pn[i] << ' ';
+	//}
 
-	for (int i = 2; i * i <= n; i++)
-	{
-
-		for (int j = i * 2; j <= n; j += i)
-		{
-			isPrime[j] = false;
-		}
-	}
-
-	for (int i = 2; i <= n; i++)
-	{
-		if (isPrime[i]) prime.push_back(i);
-	}
-
-	int p1 = 0, p2 = 0, sum = 0, cnt = 0;
+	int p1, p2, sum = 0, cnt = 0;
+	p1 = p2 = 0;
 
 	while (1)
 	{
-		if (sum >= n) sum -= prime[p1++];
-		else if (p2 == prime.size()) break;
-		else sum += prime[p2++];
+		if (sum >= n) sum -= pn[p1++];
+		else if (p2 == pn.size()) break;
+		else sum += pn[p2++];
 
 		if (sum == n) cnt++;
 	}
 
-	cout << cnt << "\n";
+	cout << cnt << '\n';
 
 	return 0;
 }
