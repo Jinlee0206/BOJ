@@ -1,6 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -22,11 +20,12 @@ int main()
 
 	sort(v.begin(), v.end());
 
-	from = v[0].second;
 	to = v[0].first;
+	from = v[0].second;
+
 	for (int i = 1; i < n; i++)
 	{
-		if (to > v[i].second) continue;
+		if (v[i].second < to) continue;
 		to = v[i].first;
 		from = v[i].second;
 		cnt++;
