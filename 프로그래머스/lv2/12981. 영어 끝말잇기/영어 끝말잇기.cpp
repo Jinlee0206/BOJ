@@ -15,9 +15,8 @@ vector<int> solution(int n, vector<string> words) {
     
     for(int i = 1; i < words.size(); i++)
     {
-        string str = words[i];
         if(prev != words[i].front()) return {now + 1, i/n + 1};
-        if(m.count(str) == 0) m[str] = 1;
+        if(m.count(words[i]) == 0) m[words[i]] = 1;
         else
         {
             return {now + 1, i/n + 1};
