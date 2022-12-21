@@ -34,15 +34,15 @@ int solution(string dartResult) {
         }
         else if(dartResult[i] == '#')
         {
-            v[idx-1] *= -1;
+            v.back() *= -1;
         }
         else if(dartResult[i] == '*')
         {
-            if(v.size() == 1) v[idx-1] *= 2;
+            if(v.size() == 1) v.back() *= 2;
             else
             {
-                v[idx-1] *= 2;
-                v[idx-2] *= 2;
+                v[v.size() - 2] *= 2;
+                v.back() *= 2;
             }
         }
     }
