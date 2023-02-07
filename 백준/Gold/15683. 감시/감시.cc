@@ -1,13 +1,12 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 const int INF = 2147000000;
-int n, m, a[10][10], tmp[10][10], res = INF;
+const int dy[] = { -1, 0, 1, 0 };
+const int dx[] = { 0, 1, 0, -1 };
 
-const int dy[] = { 0, 1, 0, -1 };
-const int dx[] = { 1, 0, -1 ,0 };
-
+int n, m, res = INF, a[10][10];
 vector<pair<int, int>> v;
 
 vector<pair<int, int>> extendCCTV(int here, int dir)
@@ -22,17 +21,15 @@ vector<pair<int, int>> extendCCTV(int here, int dir)
 		{
 			int ny = y + dy[dir];
 			int nx = x + dx[dir];
-			if (ny >= 0 && nx >= 0 && ny < n && nx < m && a[ny][nx] != 6)
+			if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 6) break;
+
+			if (a[ny][nx] == 0)
 			{
-				if (a[ny][nx] == 0)
-				{
-					a[ny][nx] = 8;
-					_change.push_back({ ny,nx });
-				}
-				y = ny;
-				x = nx;
+				a[ny][nx] = 8;
+				_change.push_back({ ny,nx });
 			}
-			else break;
+			y = ny;
+			x = nx;
 		}
 	}
 	else if (a[y][x] == 2)
@@ -45,17 +42,15 @@ vector<pair<int, int>> extendCCTV(int here, int dir)
 			{
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
-				if (ny >= 0 && nx >= 0 && ny < n && nx < m && a[ny][nx] != 6)
+				if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 6) break;
+
+				if (a[ny][nx] == 0)
 				{
-					if (a[ny][nx] == 0)
-					{
-						a[ny][nx] = 8;
-						_change.push_back({ ny,nx });
-					}
-					_y = ny;
-					_x = nx;
+					a[ny][nx] = 8;
+					_change.push_back({ ny,nx });
 				}
-				else break;
+				_y = ny;
+				_x = nx;
 			}
 		}
 	}
@@ -69,17 +64,15 @@ vector<pair<int, int>> extendCCTV(int here, int dir)
 			{
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
-				if (ny >= 0 && nx >= 0 && ny < n && nx < m && a[ny][nx] != 6)
+				if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 6) break;
+
+				if (a[ny][nx] == 0)
 				{
-					if (a[ny][nx] == 0)
-					{
-						a[ny][nx] = 8;
-						_change.push_back({ ny,nx });
-					}
-					_y = ny;
-					_x = nx;
+					a[ny][nx] = 8;
+					_change.push_back({ ny,nx });
 				}
-				else break;
+				_y = ny;
+				_x = nx;
 			}
 		}
 	}
@@ -93,17 +86,15 @@ vector<pair<int, int>> extendCCTV(int here, int dir)
 			{
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
-				if (ny >= 0 && nx >= 0 && ny < n && nx < m && a[ny][nx] != 6)
+				if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 6) break;
+
+				if (a[ny][nx] == 0)
 				{
-					if (a[ny][nx] == 0)
-					{
-						a[ny][nx] = 8;
-						_change.push_back({ ny,nx });
-					}
-					_y = ny;
-					_x = nx;
+					a[ny][nx] = 8;
+					_change.push_back({ ny,nx });
 				}
-				else break;
+				_y = ny;
+				_x = nx;
 			}
 		}
 	}
@@ -117,26 +108,26 @@ vector<pair<int, int>> extendCCTV(int here, int dir)
 			{
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
-				if (ny >= 0 && nx >= 0 && ny < n && nx < m && a[ny][nx] != 6)
+				if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 6) break;
+
+				if (a[ny][nx] == 0)
 				{
-					if (a[ny][nx] == 0)
-					{
-						a[ny][nx] = 8;
-						_change.push_back({ ny,nx });
-					}
-					_y = ny;
-					_x = nx;
+					a[ny][nx] = 8;
+					_change.push_back({ ny,nx });
 				}
-				else break;
+				_y = ny;
+				_x = nx;
 			}
 		}
 	}
+
 	return _change;
 }
 
 void dfs(int here)
 {
-	if (here == v.size()) {
+	if (here == v.size())
+	{
 		int cnt = 0;
 		for (int i = 0; i < n; i++)
 		{
@@ -145,7 +136,7 @@ void dfs(int here)
 				if (a[i][j] == 0) cnt++;
 			}
 		}
-		res = min(res, cnt);
+		res = min(cnt, res);
 		return;
 	}
 
@@ -157,7 +148,8 @@ void dfs(int here)
 	}
 }
 
-int main() {
+int main()
+{
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
@@ -173,6 +165,6 @@ int main() {
 
 	dfs(0);
 	cout << res << '\n';
-	
+
 	return 0;
 }
