@@ -10,14 +10,7 @@ string solution(string s) {
     
     for(int i = 1; i<s.size(); i++)
     {
-        if(s[i-1] == ' ')
-        {
-            answer += toupper(s[i]);
-        }
-        else
-        {
-            answer += tolower(s[i]);
-        }
+        answer += s[i-1] == ' ' ? toupper(s[i]) : tolower(s[i]);
     }
     
     return answer;
