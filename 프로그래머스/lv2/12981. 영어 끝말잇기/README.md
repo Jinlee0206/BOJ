@@ -1,10 +1,10 @@
 # [level 2] 영어 끝말잇기 - 12981 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12981) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12981?language=csharp) 
 
 ### 성능 요약
 
-메모리: 4.16 MB, 시간: 0.05 ms
+메모리: 31.3 MB, 시간: 1.68 ms
 
 ### 구분
 
