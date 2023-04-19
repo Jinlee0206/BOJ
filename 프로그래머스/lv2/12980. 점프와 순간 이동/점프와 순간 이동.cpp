@@ -3,15 +3,21 @@ using namespace std;
 
 int solution(int n)
 {
-    int ans = 0;
+    int answer = 0;
     
-    while(1)
+    while(n > 0)
     {
-        if(n == 0) break;
-        
-        if(n % 2 == 1) ans++;
-        n /= 2;
+        bool i = (n % 2 != 0) == true ? true : false;
+        if(i)
+        {
+            n -= 1;
+            answer++;
+        }
+        else
+        {
+            n /= 2;
+        }
     }
     
-    return ans;
+    return answer;
 }
