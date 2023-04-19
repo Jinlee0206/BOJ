@@ -8,15 +8,8 @@ int solution(int n)
     while(n > 0)
     {
         bool i = (n % 2 != 0) == true ? true : false;
-        if(i)
-        {
-            n -= 1;
-            answer++;
-        }
-        else
-        {
-            n /= 2;
-        }
+        n = i ? n-1 : n/2;
+        if(i) answer++;
     }
     
     return answer;
