@@ -1,23 +1,18 @@
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int solution(vector<int> people, int limit) {
+int solution(vector<int> people, int limit)
+{
     int answer = 0;
-    
-    sort(people.begin(), people.end());
-    int head = 0, tail = people.size()-1;
-    
-    while(head <= tail)
+    int s = 0;
+    int e = people.size() - 1;
+    sort(people.begin(), people.end());    
+
+    while(s <= e)
     {
-        if(people[head] + people[tail] <= limit)
-        {
-            head++;
-            tail--;
-        }
-        else tail--;
+	    if (people[s] + people[e] <= limit) s++;
+	    e--;
         answer++;
     }
     
