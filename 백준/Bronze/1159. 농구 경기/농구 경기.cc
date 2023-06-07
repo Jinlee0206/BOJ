@@ -1,39 +1,31 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int alpabet[26];
+int alpha[26];
 
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	int n;
-	cin >> n;
+    int n;
+    cin >> n;
 
-	for (int i = 0; i < n; i++)
-	{
-		string str;
-		cin >> str;
-		int a = str[0] - 97;
-		alpabet[a]++;
-	}
+    for (int i = 0; i < n; i++)
+    {
+        string str;
+        cin >> str;
+        alpha[str[0] - 'a']++;
+    }
 
-	vector<char> res;
-	for (int i = 0; i < 26; i++)
-	{
-		if (alpabet[i] >= 5) res.push_back(char(i + 97));
-	}
+    string answer;
+    for (int i = 0; i < 26; i++)
+    {
+        if (alpha[i] >= 5) answer += (char)(i + 'a');
+    }
 
-	if (!res.empty())
-	{
-		for (auto i : res) cout << i;
-	}
-	else cout << "PREDAJA" << "\n";
+    if (answer != "") cout << answer << '\n';
+    else cout << "PREDAJA" << '\n';
 
-	return 0;
+    return 0;
 }
