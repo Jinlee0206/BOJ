@@ -1,38 +1,27 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+const int INF = 2147000000;
+int psum[100001];
+int n, k, tmp, sum = -INF;
 
-	int n, k, sum = 0, m_max;
-	cin >> n >> k;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	vector<int> vec(n);
+    cin >> n >> k;
 
-	for (int i = 0; i < n; i++)
-	{
-		cin >> vec[i];
-	}
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> tmp;
+        psum[i] = psum[i - 1] + tmp; // 구간합
+    }
+    for (int i = k; i <= n; i++)
+    {
+        sum = max(sum, psum[i] - psum[i - k]);
+    }
+    cout << sum << '\n';
 
-	for (int i = 0; i < k; i++)
-	{
-		sum += vec[i];
-	}
-
-	m_max = sum;
-
-	for (int i = k; i < n; i++)
-	{
-		sum += vec[i] - vec[i - k];
-		m_max = max(sum, m_max);
-	}
-
-	cout << m_max << "\n";
-
-	return 0;
+    return 0;
 }
