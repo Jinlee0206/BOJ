@@ -5,22 +5,25 @@
 
 using namespace std;
 
-map<int, int> order; // 순서
+map<int, int> order; // index
 
 bool cmp(pair<int, int>& a, pair<int, int>& b)
 {
-	if (a.second == b.second) return order[a.first] < order[b.first]; // 갯수가 같으면 들어온 순서대로 정렬
+	if (a.second == b.second) return order[a.first] < order[b.first];
 
-	return a.second > b.second; // 많은 수대로 정렬
+	return a.second > b.second;
 }
-
 
 int main()
 {
-	int n, c;
-	cin >> n >> c;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 
-	map<int, int> list; //
+	map<int, int> list; // count
+
+	int n, c;
+
+	cin >> n >> c;
 
 	for (int i = 0; i < n; i++)
 	{
@@ -44,4 +47,5 @@ int main()
 	}
 
 	return 0;
+
 }
