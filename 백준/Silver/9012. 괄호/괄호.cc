@@ -1,50 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-#include <stack>
-
+#include <bits/stdc++.h>
 using namespace std;
+
+int n;
+
+bool check(string s)
+{
+    stack<char> stk;
+    for (char c : s)
+    {
+        if (c == '(') stk.push(c);
+        else
+        {
+            if (!stk.empty()) stk.pop();
+            else return false;
+        }
+    }
+    return stk.empty();
+}
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	int n;
-	cin >> n;
+    cin >> n;
 
-	stack<char> stk;
+    for (int i = 0; i < n; i++)
+    {
+        string str;
+        cin >> str;
+        
+        if (check(str)) cout << "YES" << '\n';
+        else cout << "NO" << "\n";
+    }
 
-	bool flag;
-
-	for (int i = 0; i < n; i++)
-	{
-		flag = true;
-		string str;
-		cin >> str;
-
-		for (int j = 0; j < str.size(); j++)
-		{
-			if (str[j] == '(') stk.push(str[j]);
-			else
-			{
-				if (stk.empty())
-				{
-					cout << "NO" << "\n";
-					flag = false;
-					break;
-				}
-				else stk.pop();
-			}
-		}
-
-		if (stk.empty() && flag == true) cout << "YES" << "\n";
-		else if (!stk.empty() && flag == true) cout << "NO" << "\n";
-
-		while (!stk.empty()) stk.pop();
-	}
-
-
-	return 0;
+    return 0;
 }
