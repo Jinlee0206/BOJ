@@ -13,13 +13,6 @@ int main() {
     cin >> n >> k;
 
     queue<int> q;
-
-    if (n == k)
-    {
-        cout << "0\n" << k << '\n';
-        return 0;
-    }
-
     q.push(n);
     visited[n] = 1;
     pos[n] = n;
