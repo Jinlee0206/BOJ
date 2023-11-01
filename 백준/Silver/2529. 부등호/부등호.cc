@@ -1,39 +1,35 @@
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#include <string>
-
+// BOJ-2529 : 부등호
+#include<bits/stdc++.h>
 using namespace std;
 
-int n;
-bool visited[10];
-vector<char> vec;
-vector<string> res;
+const int INF = 2147000000;
+int n, max_n = -INF, min_n = INF, visited[10];
+char op[10];
+vector<string> v;
 
-bool isGood(char x, char y, char op)
+bool isGood(char x, char y, char oper)
 {
-	if (x < y && op == '<') return true;
-	if (x > y && op == '>') return true;
-	return false;
+	if (x < y && oper == '<') return true;
+	else if (x > y && oper == '>') return true;
+	else return false;
 }
 
 void dfs(int idx, string num)
 {
 	if (idx == n + 1)
 	{
-		res.push_back(num);
+		v.push_back(num);
 		return;
 	}
 
 	for (int i = 0; i < 10; i++)
 	{
-		if (visited[i]) continue;
-		if (idx == 0 || isGood(num[idx - 1], i + '0', vec[idx - 1]))
+		if (visited[i]) continue; // 숫자 재사용 불가
+		if (idx == 0 || isGood(num[idx - 1], i + '0', op[idx - 1]))
 		{
-			visited[i] = true;
+			visited[i] = 1;
 			dfs(idx + 1, num + to_string(i));
-			visited[i] = false;
+			visited[i] = 0;
 		}
 	}
 	return;
@@ -46,16 +42,14 @@ int main()
 
 	cin >> n;
 
-	for (int i = 0; i < n; i++)
-	{
-		char a;
-		cin >> a;
-		vec.push_back(a);
+	for (int i = 0; i < n; i++) {
+		cin >> op[i];
 	}
 
 	dfs(0, "");
-	sort(res.begin(), res.end());
-	cout << res[res.size() - 1] << "\n" << res[0] << "\n";
+
+	sort(v.begin(), v.end());
+	cout << v[v.size() - 1] << '\n' << v[0] << '\n';
 
 	return 0;
 }
