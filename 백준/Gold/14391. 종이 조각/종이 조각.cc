@@ -1,11 +1,10 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
+// BOJ - 14391: 종이 조각
 
+#include<bits/stdc++.h>
 using namespace std;
 
-int n, m, a[5][5], res;
+int n, m, res;
+int a[4][4];
 
 int main()
 {
@@ -18,27 +17,25 @@ int main()
 	{
 		string str;
 		cin >> str;
-		for (int j = 0; j < str.size(); j++)
+		for (int j = 0; j < m; j++)
 		{
-			a[i][j] = (int)(str[j]- '0');
+			a[i][j] = str[j] - '0';
 		}
 	}
 
-	for (int s = 0; s < (1 << (n * m)); s++)
+	for (int s = 0; s < (1 << (n * m)); s++) // 맵을 0과 1로 나누는 모든 경우의 수 탐색
 	{
 		// 전체 합 초기화
 		int sum = 0;
-
-		// 세로 기준, 가로 방향 탐색 
+		// 세로 기준, 가로 방향 탐색
 		for (int i = 0; i < n; i++)
 		{
-			// 줄마다 cur 변수 초기화 
 			int cur = 0;
 			for (int j = 0; j < m; j++)
 			{
-				int k = i * m + j;
-				// 0 : 가로 합
-				if ((s & (1 << k)) == 0) {
+				int k = i * m + j; // 실제 탐색 순서
+				if ((s & (1 << k)) == 0) // 0 : 가로 합
+				{
 					cur = cur * 10 + a[i][j];
 				}
 				else
@@ -47,10 +44,8 @@ int main()
 					cur = 0;
 				}
 			}
-			// 남은 cur 값 sum에 더하기
-			sum += cur;
+			sum += cur; // 남은 cur 값 sum에 더하기
 		}
-
 		// 가로 기준, 세로 방향 탐색
 		for (int j = 0; j < m; j++)
 		{
@@ -58,7 +53,6 @@ int main()
 			for (int i = 0; i < n; i++)
 			{
 				int k = i * m + j;
-				// 1 : 세로 합
 				if ((s & (1 << k)) != 0)
 				{
 					cur = cur * 10 + a[i][j];
@@ -71,12 +65,10 @@ int main()
 			}
 			sum += cur;
 		}
-
-		// 완탐 후 최대치 구하기
-		res = max(res, sum);
+		res = max(res, sum); // 완탐 후 최대치 구하기
 	}
 	
-	cout << res << "\n";
+	cout << res << '\n';
 
 	return 0;
 }
