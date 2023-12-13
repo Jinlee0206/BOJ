@@ -1,38 +1,34 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
+// BOJ - 11723 : 집합
 
+#include<bits/stdc++.h>
 using namespace std;
 
-int n, m, x;
+int m, n = 0, x;
 string s;
 
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-
+	
 	cin >> m;
 
 	for (int i = 0; i < m; i++)
 	{
 		cin >> s;
 
-		if (s[0] == 'a' && s[1] == 'd')
-		{
-			cin >> x;
+		if (s[0] == 'a' && s[1] == 'd') {
+			cin >> x; 
 			n |= (1 << x);
 		}
 		else if (s[0] == 'r')
 		{
-			cin >> x;
+			cin >> x; 
 			n &= ~(1 << x);
 		}
-		else if (s[0] == 'c')
-		{
-			cin >> x;
-			cout << ((n & (1 << x)) == 0 ? 0 : 1) << "\n";
+		else if (s[0] == 'c') {
+			cin >> x; 
+			cout << ((n & (1 << x)) == 0 ? 0 : 1) << '\n';
 		}
 		else if (s[0] == 't')
 		{
