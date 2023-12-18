@@ -1,16 +1,10 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-
+// BOJ-15353 : 큰 수 A+B (2)
+#include<bits/stdc++.h>
 using namespace std;
 
-string str1, str2, res;
-
-string go(string a, string b)
+string sum(string a, string b)
 {
 	int sum = 0;
-
 	string res;
 	while (a.size() || b.size() || sum)
 	{
@@ -24,10 +18,9 @@ string go(string a, string b)
 			sum += b.back() - '0';
 			b.pop_back();
 		}
-		res += (sum % 10) + '0';
-		sum /= 10;
+		res += sum % 10 + '0';
+		sum /= 10; // 올림
 	}
-	reverse(res.begin(), res.end());
 	return res;
 }
 
@@ -36,9 +29,12 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	cin >> str1 >> str2;
+	string a, b;
+	cin >> a >> b;
 
-	cout << go(str1, str2) << "\n";
+	string s = sum(a, b);
+	reverse(s.begin(), s.end());
+	cout << s << '\n';
 
 	return 0;
 }

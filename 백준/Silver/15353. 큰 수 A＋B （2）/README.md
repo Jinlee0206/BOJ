@@ -1,4 +1,4 @@
-# [Silver IV] 큰 수 A+B (2) - 15353 
+# [Silver III] 큰 수 A+B (2) - 15353 
 
 [문제 링크](https://www.acmicpc.net/problem/15353) 
 
@@ -8,7 +8,11 @@
 
 ### 분류
 
-임의 정밀도 / 큰 수 연산(arbitrary_precision), 사칙연산(arithmetic), 수학(math), 문자열(string)
+임의 정밀도 / 큰 수 연산, 사칙연산, 수학, 문자열
+
+### 제출 일자
+
+2023년 12월 18일 16:01:39
 
 ### 문제 설명
 
