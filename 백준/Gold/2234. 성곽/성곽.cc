@@ -1,13 +1,10 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-const int dy[4] = { 0, -1, 0, 1 };
-const int dx[4] = { -1, 0, 1, 0 };
+const int dy[] = { 0, -1, 0, 1 };
+const int dx[] = { -1, 0, 1, 0 };
 
-int m, n, a[54][54], visited[54][54], cnt, res, compSize[2504], big, mx;
+int n, m, a[54][54], visited[54][54], compSize[2504], cnt, mx, big;
 
 int dfs(int y, int x, int cnt)
 {
@@ -36,28 +33,25 @@ int main()
 
 	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < m; j++)
+		for (int j = 0; j < m; j++) 
 		{
 			cin >> a[i][j];
 		}
 	}
 
-	// 구역 설정 DFS
-	// mx 값 구하기
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
-		{
+		{		
 			if (!visited[i][j])
 			{
 				cnt++;
-				compSize[cnt] = dfs(i, j, cnt);
+			    compSize[cnt] = dfs(i, j, cnt);
 				mx = max(mx, compSize[cnt]);
 			}
 		}
 	}
 
-	// 완전탐색 설정
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
@@ -66,24 +60,18 @@ int main()
 			{
 				int a = visited[i + 1][j];
 				int b = visited[i][j];
-				if (a != b)
-				{
-					big = max(big, compSize[a] + compSize[b]);
-				}
+				if (a != b) big = max(big, compSize[a] + compSize[b]);
 			}
 			if (j + 1 < m)
 			{
 				int a = visited[i][j + 1];
 				int b = visited[i][j];
-				if (a != b)
-				{
-					big = max(big, compSize[a] + compSize[b]);
-				}
+				if (a != b) big = max(big, compSize[a] + compSize[b]);
 			}
 		}
 	}
-
-	cout << cnt << "\n" << mx << "\n" << big << "\n";
 	
+	cout << cnt << '\n' << mx << '\n' << big << '\n';
+
 	return 0;
 }
