@@ -18,7 +18,7 @@ int main()
 
 		cin >> p >> n >> s;
 
-		deque<int> dq;
+		deque<int> dq; // 덱을 활용하여 R 함수 처리
 
 		for (int i = 1; i < s.size() - 1; i++)
 		{
@@ -32,23 +32,19 @@ int main()
 				tmp = 0;
 			}
 		}
-		if(tmp != 0) dq.push_back(tmp);
+		if(tmp != 0) dq.push_back(tmp); //빈 배열이 주어질 때 반례 체크
 
-		bool isRev = false, isError = false;
-
+		bool isRev = false; // 실제 배열을 뒤집는 것이 아니라 bool 값과 deque를 활용하여 앞 또는 뒤의 원소 제거
+		bool isError = false; // 에러 발생을 체크하는 boolean 변수
 
 		for (int i = 0; i < p.size(); i++)
 		{
-			if (p[i] == 'R')
-			{
-				if (isRev) isRev = false;
-				else isRev = true;
-			}
+			if (p[i] == 'R') isRev = !isRev;
 			else if (p[i] == 'D')
 			{
 				if (dq.empty())
 				{
-					isError = true;
+					isError = true; // 빈 배열에 D 함수 사용 시 에러
 					break;
 				}
 
@@ -57,28 +53,19 @@ int main()
 			}
 		}
 
-		if (!isError)
+		if (!isError) // 에러 발생 하지 않았을 때 정답 출력
 		{
 			cout << "[";
-			if (!isRev)
+			if (isRev) reverse(dq.begin(), dq.end());
+			for (int i = 0; i < dq.size(); i++)
 			{
-				for (int i = 0; i < dq.size(); i++)
-				{
-					if (i == (dq.size() - 1)) cout << dq[i];
-					else cout << dq[i] << ",";
-				}
+				cout << dq[i];
+				if (i < (dq.size() - 1)) cout << ",";
 			}
-			else
-			{
-				for (int i = dq.size() - 1; i >= 0; i--)
-				{
-					if (i == 0) cout << dq[i];
-					else cout << dq[i] << ",";
-				}
-			}
+			
 			cout << "]\n";
 		}
-		else cout << "error" << '\n';
+		else cout << "error" << '\n'; // 에러 발생시
 	}
 
 	return 0;
