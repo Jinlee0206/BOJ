@@ -21,6 +21,7 @@ string sum(string a, string b)
 		res += sum % 10 + '0';
 		sum /= 10; // 올림
 	}
+	reverse(res.begin(), res.end());
 	return res;
 }
 
@@ -31,10 +32,7 @@ int main()
 
 	string a, b;
 	cin >> a >> b;
-
-	string s = sum(a, b);
-	reverse(s.begin(), s.end());
-	cout << s << '\n';
+	cout << sum(a, b) << '\n';
 
 	return 0;
 }
