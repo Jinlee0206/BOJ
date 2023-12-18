@@ -1,95 +1,85 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <deque>
-
+// BOJ-5430 : AC
+#include<bits/stdc++.h>
 using namespace std;
 
-int t, n;
-string s, str;
+int t;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 
-    cin >> t;
+	cin >> t;
 
-    while (t--)
-    {
-        cin >> s >> n;
+	while (t--)
+	{
+		string p, s;
+		int n, tmp = 0;
 
-        deque<int> deq;
+		cin >> p >> n >> s;
 
-        cin >> str;
+		deque<int> dq;
 
-        string tmp = "";
+		for (int i = 1; i < s.size() - 1; i++)
+		{
+			if (s[i] != ',')
+			{
+				tmp = tmp * 10 + (s[i] - '0');
+			}
+			else
+			{
+				dq.push_back(tmp);
+				tmp = 0;
+			}
+		}
+		if(tmp != 0) dq.push_back(tmp);
 
-        for (int i = 0; i < str.size(); i++)
-        {
-            if (isdigit(str[i]))
-            {
-                tmp += str[i];
-            }
-            else
-            {
-                if (!tmp.empty())
-                {
-                    deq.push_back(stoi(tmp));
-                    tmp = "";
-                }
-            }
-        }
+		bool isRev = false, isError = false;
 
-        bool isReverse = false;
-        bool isError = false;
 
-        for (int i = 0; i < s.size(); i++)
-        {
-            if (s[i] == 'R')
-            {
-                if (isReverse) isReverse = false;
-                else isReverse = true;
-            }
-            else if (s[i] == 'D')
-            {
-                if (deq.empty())
-                {
-                    isError = true;
-                    break;
-                }
+		for (int i = 0; i < p.size(); i++)
+		{
+			if (p[i] == 'R')
+			{
+				if (isRev) isRev = false;
+				else isRev = true;
+			}
+			else if (p[i] == 'D')
+			{
+				if (dq.empty())
+				{
+					isError = true;
+					break;
+				}
 
-                if (isReverse)
-                {
-                    deq.pop_back();
-                }
-                else deq.pop_front();
-            }
-        }
+				if (isRev == true) dq.pop_back();
+				else if (isRev == false) dq.pop_front();
+			}
+		}
 
-        if (!isError)
-        {
-            cout << "[";
-            if (!isReverse)
-            {
-                for (int i = 0; i < deq.size(); i++)
-                {
-                    if (i == (deq.size() - 1)) cout << deq[i];
-                    else cout << deq[i] << ",";
-                }
-            }
-            else
-            {
-                for (int i = deq.size() - 1; i >= 0; i--)
-                {
-                    if (i == 0) cout << deq[i];
-                    else cout << deq[i] << ",";
-                }
-            }
-            cout << "]" << "\n";
-        }
-        else cout << "error" << "\n";
-        
-    }
-    return 0;
+		if (!isError)
+		{
+			cout << "[";
+			if (!isRev)
+			{
+				for (int i = 0; i < dq.size(); i++)
+				{
+					if (i == (dq.size() - 1)) cout << dq[i];
+					else cout << dq[i] << ",";
+				}
+			}
+			else
+			{
+				for (int i = dq.size() - 1; i >= 0; i--)
+				{
+					if (i == 0) cout << dq[i];
+					else cout << dq[i] << ",";
+				}
+			}
+			cout << "]\n";
+		}
+		else cout << "error" << '\n';
+	}
+
+	return 0;
 }
