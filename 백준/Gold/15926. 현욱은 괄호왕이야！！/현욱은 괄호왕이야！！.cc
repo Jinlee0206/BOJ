@@ -1,12 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <stack>
-
+// BOJ-15926 : 현욱은 괄호왕이야!!
+#include<bits/stdc++.h>
 using namespace std;
 
-int n, d[200001], cnt, res;
+int n, res;
 string s;
 stack<int> stk;
 
@@ -31,8 +27,7 @@ int main()
 			else stk.push(i);
 		}
 	}
-
-	cout << res << "\n";
+	cout << res << '\n';
 
 	return 0;
 }
