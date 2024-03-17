@@ -1,20 +1,17 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+// BOJ-13144 : List of Unique Numbers 
+#include <bits/stdc++.h>
 using namespace std;
-
 typedef long long ll;
 
-ll s, e, cnt[100001], n, a[100001], res;
+ll n, s, e, cnt[100004], a[100004];
+ll res;
 
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-
+	
 	cin >> n;
-
 	for (int i = 0; i < n; i++)
 	{
 		cin >> a[i];
@@ -34,9 +31,8 @@ int main()
 			s++;
 		}
 	}
-	res += (long long)(e - s) * (e - s + 1) / 2;
-
+	res += (ll)(e - s) * (e - s + 1)/ 2;
 	cout << res << '\n';
-
+	
 	return 0;
 }
