@@ -1,75 +1,71 @@
-#include<bits/stdc++.h>
-
+// BOJ-3190 : 뱀
+#include <bits/stdc++.h>
 using namespace std;
 
-int n, k, l, y, x, X, ans, idx, dir = 1;
-char C;
-int bd[104][104], visited[104][104];
+const int dy[] = { 0, 1, 0 ,-1 };
+const int dx[] = { 1, 0, -1 ,0 };
 
+int n, k, l, x, idx, a[104][104], visited[104][104], dir = 0, res;
+char C;
 vector<pair<int, int>> v;
 deque<pair<int, int>> dq;
 
-const int dy[] = { -1, 0, 1, 0 };
-const int dx[] = { 0, 1, 0, -1 };
-
-// deque 활용 스네이크 게임 구현
-int main() {
+int main()
+{
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
+	cout.tie(NULL);
 
 	cin >> n >> k;
 
 	for (int i = 0; i < k; i++)
 	{
-		cin >> y >> x;
-		bd[--y][--x] = 1;
+		int r, c;
+		cin >> r >> c;
+		a[--r][--c] = 1;
 	}
 
 	cin >> l;
-
 	for (int i = 0; i < l; i++)
 	{
-		cin >> X >> C;
-		if (C == 'D') v.push_back({ X, 1 });
-		else v.push_back({ X, 3 });
+		cin >> x >> C;
+		if (C == 'D') v.push_back({ x, 1 });
+		else v.push_back({ x, 3 });
 	}
 
 	dq.push_back({ 0,0 });
 	while (dq.size())
 	{
-		ans++;
-		tie(y, x) = dq.front();
+		res++;
+		pair<int,int> tmp = dq.front();
+		int ny = tmp.first + dy[dir];
+		int nx = tmp.second + dx[dir];
 
-		int ny = y + dy[dir];
-		int nx = x + dx[dir];
+		// 보드판 끝에 가거나 자기 자신의 몸에 부딪힘
+		if (ny < 0 || nx < 0 || ny >= n || nx >= n || visited[ny][nx]) break;
 
-		// 보드 판 끝에 가거나 자기 자신의 몸에 부딪힌다
-		if (ny < 0 || ny >= n || nx < 0 || nx >= n || visited[ny][nx]) break;
-
-		// 해당 보드판에 사과가 없다
-		if (!bd[ny][nx])
+		// 사과를 안먹었으면 길이 일정
+		// deque의 back 부분 방문처리 해제
+		if (!a[ny][nx])
 		{
-			// 꼬리쪽 방문 풀어주기
 			visited[dq.back().first][dq.back().second] = 0;
 			dq.pop_back();
-		} // 사과 먹은 곳 사과 제거
-		else bd[ny][nx] = 0;
+		}
+		else a[ny][nx] = 0;
 
-		// 방문할 곳 방문처리
+		// 방문할 곳 방문 처리
 		visited[ny][nx] = 1;
-		dq.push_front({ ny,nx });	
+		dq.push_front({ ny,nx });
 
-		// 방향 전환할 시간 도달
-		if (ans == v[idx].first)
+		// 방향전환할 시간 도달
+		if (res == v[idx].first)
 		{
-			// 방향 만들기 모듈러 연산 암기!
-			dir = (dir + v[idx].second) % 4;
+			dir = (dir + v[idx].second) % 4; // 방향 만들기 모듈러 연산
 			idx++;
 		}
-
 	}
 
-	cout << ans << '\n';
-
+	cout << res << '\n';
+	
 	return 0;
 }
