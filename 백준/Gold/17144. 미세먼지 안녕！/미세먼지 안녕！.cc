@@ -1,33 +1,36 @@
-// BOJ-17144 : 미세먼지 안녕!
+// BOJ-12100 : 2048 (easy)
 #include <bits/stdc++.h>
 using namespace std;
 
 const int INF = 2147000000;
-int dy1[] = { 0,-1,0,1 };
-int dx1[] = { 1,0,-1,0 };
-int dy2[] = { 0,1,0,-1 };
-int dx2[] = { 1,0,-1,0 };
+int dy1[] = { 0, -1, 0 , 1 };
+int dx1[] = { 1, 0, -1, 0 };
+int dy2[] = { 0, 1, 0, -1 };
+int dx2[] = { 1, 0, -1, 0 };
 
 int r, c, t, a[54][54], tmp[54][54], res;
 
-vector<pair<int, int>> v1, v2; // 각각 위쪽 아래쪽 공기청정기 바람 경로 저장하는 배열
+vector<pair<int, int>> v1, v2;
 
 void diffusion(int dy[], int dx[])
 {
 	fill(&tmp[0][0], &tmp[0][0] + 54 * 54, 0);
+
 	queue<pair<int, int>> q;
 
 	for (int i = 0; i < r; i++)
 	{
 		for (int j = 0; j < c; j++)
 		{
-			if (a[i][j] != -1 && a[i][j]) q.push({ i,j });
+			if (a[i][j] != -1 && a[i][j]) {
+				q.push({ i,j });
+			}
 		}
 	}
 
 	while (q.size())
 	{
-		pair<int,int> tmpPos = q.front();
+		pair<int, int> tmpPos = q.front();
 		q.pop();
 
 		int y = tmpPos.first;
@@ -38,14 +41,13 @@ void diffusion(int dy[], int dx[])
 		{
 			int ny = y + dy1[i];
 			int nx = x + dx1[i];
-			
+
 			if (ny < 0 || nx < 0 || ny >= r || nx >= c || a[ny][nx] == -1) continue;
 			tmp[ny][nx] += spread;
 			a[y][x] -= spread;
 		}
 	}
 
-	// 확산 진행된 임시 배열을 본 배열에 더하기
 	for (int i = 0; i < r; i++)
 	{
 		for (int j = 0; j < c; j++)
@@ -56,9 +58,19 @@ void diffusion(int dy[], int dx[])
 	return;
 }
 
-vector<pair<int,int>> clean(int sy, int sx, int dy[], int dx[])
+void go(vector<pair<int, int>>& v) {
+	// 1 2 3 4 5 6 7 8 9 => 0 1 2 3 4 5 6 7 8
+	for (int i = v.size() - 1; i > 0; i--)
+	{
+		a[v[i].first][v[i].second] = a[v[i - 1].first][v[i - 1].second];
+	}
+	a[v[0].first][v[0].second] = 0;
+	return;
+}
+
+vector<pair<int, int>> clean(int sy, int sx, int dy[], int dx[])
 {
-	vector<pair<int,int>> v;
+	vector<pair<int, int>> v;
 
 	int cnt = 0;
 	int y = sy;
@@ -69,13 +81,11 @@ vector<pair<int,int>> clean(int sy, int sx, int dy[], int dx[])
 		int ny = y + dy[cnt];
 		int nx = x + dx[cnt];
 
-		if (ny == sy && nx == sx) break;
+		if (ny == sy && nx == sx) break; // 시작 지점에 도달하면 멈추기
 
 		if (ny < 0 || nx < 0 || ny >= r || nx >= c)
 		{
 			cnt++;
-
-			// 방향 전환 후 한번 더 실행해줘야지 무한루프에 빠지지 않음
 			ny = y + dy[cnt];
 			nx = x + dx[cnt];
 		}
@@ -86,15 +96,6 @@ vector<pair<int,int>> clean(int sy, int sx, int dy[], int dx[])
 	return v;
 }
 
-void go(vector<pair<int, int>>& v) {
-	for (int i = v.size() - 1; i > 0; i--)
-	{
-		a[v[i].first][v[i].second] = a[v[i - 1].first][v[i - 1].second];
-	}
-	a[v[0].first][v[0].second] = 0;
-	return;
-}
-
 int main()
 {
 	ios_base::sync_with_stdio(false);
@@ -102,13 +103,13 @@ int main()
 
 	cin >> r >> c >> t;
 
-	bool flag = 1;
-	for (int i = 0; i < r; i++)
+	bool flag = true;
+	for (int i = 0; i < r; i++) 
 	{
 		for (int j = 0; j < c; j++)
 		{
 			cin >> a[i][j];
-			if (a[i][j] == -1) // 공기청정기 바람 방향에 있는 지점 벡터에 저장 
+			if (a[i][j] == -1)
 			{
 				if (flag)
 				{
@@ -122,16 +123,18 @@ int main()
 
 	while (t--)
 	{
-		diffusion(dy1, dx2);
+		diffusion(dy1, dx1);
 		go(v1);
 		go(v2);
 	}
 
-	for (int i = 0; i < r; i++)
-	{
+	for (int i = 0; i < r; i++) {
 		for (int j = 0; j < c; j++)
 		{
-			if (a[i][j] != -1) res += a[i][j];
+			if (a[i][j] != -1)
+			{
+				res += a[i][j];
+			}
 		}
 	}
 
