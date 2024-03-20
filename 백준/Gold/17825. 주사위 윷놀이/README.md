@@ -1,14 +1,18 @@
-# [Gold III] 주사위 윷놀이 - 17825 
+# [Gold II] 주사위 윷놀이 - 17825 
 
 [문제 링크](https://www.acmicpc.net/problem/17825) 
 
 ### 성능 요약
 
-메모리: 2028 KB, 시간: 68 ms
+메모리: 2028 KB, 시간: 64 ms
 
 ### 분류
 
-백트래킹(backtracking), 브루트포스 알고리즘(bruteforcing), 구현(implementation), 시뮬레이션(simulation)
+백트래킹, 브루트포스 알고리즘, 구현, 시뮬레이션
+
+### 제출 일자
+
+2024년 3월 20일 19:38:27
 
 ### 문제 설명
 
