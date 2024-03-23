@@ -8,7 +8,11 @@
 
 ### 분류
 
-구현(implementation), 시뮬레이션(simulation)
+구현, 시뮬레이션
+
+### 제출 일자
+
+2024년 3월 23일 17:25:11
 
 ### 문제 설명
 
@@ -36,7 +40,7 @@
 	<tbody>
 		<tr>
 			<td style="width: 33%; text-align: center;"><img alt="" src="https://upload.acmicpc.net/977a4e67-5aa7-40d4-92ee-5f59ac75aadb/-/preview/" style="width: 300px; height: 295px;"></td>
-			<td style="width: 34%; text-align: center;"><img alt="" src="" style="width: 300px; height: 295px;"></td>
+			<td style="width: 34%; text-align: center;"><img alt="" src="https://upload.acmicpc.net/f2c1e70b-0a84-46c3-b38d-f7395219b00a/-/preview/" style="width: 300px; height: 295px;"></td>
 			<td style="width: 33%; text-align: center;"><img alt="" src="https://upload.acmicpc.net/39d57771-6162-49f5-97b7-0d9fd8911222/-/preview/" style="width: 300px; height: 295px;"></td>
 		</tr>
 		<tr>
