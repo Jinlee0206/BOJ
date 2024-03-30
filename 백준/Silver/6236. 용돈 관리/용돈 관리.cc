@@ -1,3 +1,4 @@
+// BOJ - 6236 : 용돈 관리
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -7,7 +8,8 @@ ll a[100004];
 bool go() {
     if (mx > mid)
         return false;
-    int num = 0, sum = mid;
+    int num = 1, sum = mid;
+    
     for (int i = 0; i < n; i++) {
         if (sum - a[i] < 0) {
             num++;
@@ -15,18 +17,24 @@ bool go() {
         }
         sum -= a[i];
     }
-    if (sum != mid)num++;
     return num <= m;
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
     cin >> n >> m;
     int sum = 0;
+    
     for (int i = 0; i < n; i++) {
         cin >> a[i];
-        sum += a[i]; mx = max(mx, a[i]);
+        sum += a[i];
+        mx = max(mx, a[i]);
     }
+    
     l = 1, h = sum;
+    
     while (l <= h) {
         mid = (h + l) / 2;
         if (go()) {
