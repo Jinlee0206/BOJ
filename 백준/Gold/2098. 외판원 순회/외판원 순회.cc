@@ -1,33 +1,46 @@
-#include <bits/stdc++.h> 
-#define MAX_N 16
-const int INF = 987654321;
-using namespace std; 
-int n, dp[MAX_N][1 << MAX_N], dist[MAX_N][MAX_N];
-int tsp(int here, int visited){
-    if(visited == (1 << n) - 1){
-        return dist[here][0] ? dist[here][0] : INF;
+// BOJ - 2098 : 외판원 순회
+#include<bits/stdc++.h>
+using namespace std;
+#define max_n 16
+const int INF = 214700000;
+
+int n, w[max_n][max_n], dp[max_n][1 << max_n];
+
+int tsp(int here, int visited)
+{
+    if (visited == (1 << n) - 1)
+    {
+        return w[here][0] ? w[here][0] : INF;
     }
-    int &ret = dp[here][visited];
-    if(ret != -1) return ret;
-    ret = INF;
-    for(int i = 0; i < n; i++){
-        if(visited & (1 << i)) continue;
-        if(dist[here][i] == 0) continue;
-        ret = min(ret, tsp(i, visited | (1 << i)) + dist[here][i]);
+
+    int& res = dp[here][visited];
+    if (res != -1) return res;
+    res = INF;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (visited & (1 << i)) continue;
+        if (w[here][i] == 0) continue;
+        res = min(res, tsp(i, visited | (1 << i)) + w[here][i]);
     }
-    return ret;
+    return res;
 }
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    cout.tie(NULL);
+
     cin >> n;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            cin >> dist[i][j];
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++) {
+            cin >> w[i][j];
         }
     }
+
     memset(dp, -1, sizeof(dp));
     cout << tsp(0, 1) << '\n';
+
     return 0;
 }
