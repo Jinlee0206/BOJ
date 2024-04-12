@@ -1,60 +1,59 @@
 // BOJ - 1103 : 게임
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-const int INF = 2147000000;
 
 const int dy[] = { -1, 0, 1, 0 };
-const int dx[] = { 0 ,1, 0 ,-1 };
-
+const int dx[] = { 0, 1, 0, -1 };
 int n, m, a[54][54], visited[54][54], dp[54][54];
 
 bool in(int aa, int bb)
 {
-    return (aa >= 0 && aa < n && bb >= 0 && bb < m);
+	return (aa >= 0 && bb >= 0 && aa < n && bb < m);
 }
 
 int dfs(int y, int x)
 {
-    if (!in(y, x) || a[y][x] == -1) return 0;
-    if (visited[y][x])
-    {
-        cout << -1 << '\n';
-        exit(0); // 메인함수 종료
-    }
-    int& res = dp[y][x];
-    if (res) return res;
+	if (!in(y, x) || a[y][x] == -1) return 0;
+	if (visited[y][x])
+	{
+		cout << -1 << '\n';
+		exit(0);
+	}
 
-    visited[y][x] = 1;
-    int value = a[y][x];
-    for (int i = 0; i < 4; i++)
-    {
-        int ny = y + dy[i] * value;
-        int nx = x + dx[i] * value;
-        res = max(res, dfs(ny, nx) + 1);
-    }
-    visited[y][x] = 0; // 다음 경우의 수에 영향 없게 방문처리 함수 원복
-    return res;
+	int& res = dp[y][x];
+	if (res) return res;
+
+	visited[y][x] = 1;
+	int value = a[y][x];
+	for (int i = 0; i < 4; i++)
+	{
+		int ny = y + dy[i] * value;
+		int nx = x + dx[i] * value;
+		res = max(res, dfs(ny, nx) + 1);
+	}
+	visited[y][x] = 0;
+	return res;
 }
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 
-    cin >> n >> m;
+	cin >> n >> m;
 
-    for (int i = 0; i < n; i++)
-    {
-        string str;
-        cin >> str;
-        for (int j = 0; j < str.size(); j++)
-        {
-            if (str[j] == 'H') a[i][j] = -1;
-            else a[i][j] = str[j] - '0';
-        }
-    }
+	for (int i = 0; i < n; i++)
+	{	
+		string str;
+		cin >> str;
+		for (int j = 0; j < str.size(); j++)
+		{
+			if (str[j] == 'H') a[i][j] = -1;
+			else a[i][j] = str[j] - '0';
+		}
+	}
 
-    cout << dfs(0, 0) << '\n';
+	cout << dfs(0, 0) << '\n';
 
-
-    return 0;
+	return 0;
 }
