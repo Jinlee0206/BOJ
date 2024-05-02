@@ -13,7 +13,7 @@ void go(int here, int _n, vector<int>& v, int sum)
 		v.push_back(sum);
 		return;
 	}
-	go(here + 1, _n, v, sum + a[here]); 
+	go(here + 1, _n, v, sum + a[here]);
 	go(here + 1, _n, v, sum);
 	return;
 }
@@ -36,9 +36,10 @@ int main()
 	{
 		if (c - b >= 0)
 		{
-			res += ((int)(upper_bound(v2.begin(), v2.end(), c - b) - v2.begin()));
+			res += (int)(upper_bound(v2.begin(), v2.end(), c - b) - v2.begin());
 		}
 	}
+
 	cout << res << '\n';
 	return 0;
 }
