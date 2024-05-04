@@ -25,7 +25,6 @@ string findMin(int here)
         if (here - a[i] < 0) continue;
         if (here == n && i == 0) continue; // 성냥개비 모두 썼을때, 첫번째 인덱스가 0인 경우 불가능
         res = get_min_str(res, to_string(i) + findMin(here - a[i]));
-        cout << res << '\n';
     }
     return res;
 }
@@ -52,25 +51,11 @@ int main() {
 
     cin >> t;
 
-    fill(dp, dp + 104, max_str);
-
-    // 1. 바텀업 방식
-    dp[0] = "";
-    for (int i = 2; i < 104; i++)
-    {
-        for (int j = 0; j <= 9; j++)
-        {
-            if (i - a[j] < 0) continue; // 남은 성냥개비 수보다 사용하려는 수가 드는 성냥개비가 적으면 x
-            if (j == 0 && dp[i - a[j]] == "") continue; // 성냥개비가 6개가 남았고 맨앞의 인덱스에 0이 들어가는 경우이면
-            dp[i] = get_min_str(dp[i], dp[i - a[j]] + to_string(j));
-        }
-    }
-
     while (t--)
     {
         cin >> n;
-
-        cout << dp[n] << " " << findMax(n) << '\n';
+    	fill(dp, dp + 104, max_str);
+        cout << findMin(n) << " " << findMax(n) << '\n';
     }
     return 0;
 }
