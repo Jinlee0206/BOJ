@@ -1,41 +1,36 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-
+// BOJ - 9996 : 한국이 그리울 땐 서버에 접속하지
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
-string str, prefix, suffix;
+int n;
+string pw, prefix, suffix;
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(NULL); cout.tie(NULL);
 
-	int n;
-	cin >> n;
-	cin >> str;
+	cin >> n >> pw;
 
-	int pos = str.find('*');
+	int pos = pw.find('*');
+	prefix = pw.substr(0, pos);
+	suffix = pw.substr(pos + 1);
 
-	prefix = str.substr(0, pos);
-	// substr() 하나의 문자만 넣으면 문자열 끝까지 추출한다
-	suffix = str.substr(pos + 1);
-	
 	for (int i = 0; i < n; i++)
 	{
-		string s;
-		cin >> s;
-
-		// 앞 또는 뒤 하나만 입력하여서 DA가 되는 경우 방지
-		if (prefix.size() + suffix.size() > s.size())
+		string str;
+		cin >> str;
+		if (prefix.size() + suffix.size() > str.size())
 		{
-			cout << "NE" << "\n";
+			cout << "NE\n";
+			continue;
 		}
-		else
+		if (prefix == str.substr(0, prefix.size()) && suffix == str.substr(str.size() - suffix.size()))
 		{
-			if (prefix == s.substr(0, prefix.size()) && suffix == s.substr(s.size() - suffix.size())) cout << "DA" << "\n";
-			else cout << "NE" << "\n";
+			cout << "DA\n";
 		}
+		else cout << "NE\n";
 	}
 
 	return 0;
