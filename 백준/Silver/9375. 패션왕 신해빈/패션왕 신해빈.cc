@@ -1,45 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <map>
-
+// BOJ - 9375 : 패션왕 신해빈
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
+const int INF = 2147000000;
 
-// 경우의 수
+int t, n, res = 1;
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(NULL); cout.tie(NULL);
 
-	int t;
 	cin >> t;
-
-	while (t)
+	while (t--)
 	{
-		int n;
 		cin >> n;
-
-		map<string, int> list;
+		map<string, int> mp;
+		res = 1;
 
 		for (int i = 0; i < n; i++)
 		{
-			string name, type;
-			cin >> name >> type;
-
-			list[type]++;
+			string a, b;
+			cin >> a >> b;
+			mp[b]++;
 		}
 
-		long long res = 1;
-		
-		for (auto c : list)
+		for (auto i : mp)
 		{
-			res *= ((long long)c.second + 1);
+			res *= (i.second + 1);
 		}
-		res--;
+		res -= 1;
+		cout << res << '\n';
 		
-		cout << res << "\n";
 
-		t--;
 	}
 
 	return 0;
