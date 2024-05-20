@@ -1,26 +1,16 @@
-#define _CRT_NO_SECURE_WARNINGS
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+// BOJ - 1992 : 쿼드트리
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
 
 int n;
-string str;
-char a[100][100];
+char a[65][65];
 
-string quad(int y, int x, int size)
-{
-	//cout << y << " : " << x << " : " << size << "\n";
-
-	// 기저 사례
-	if (size == 1) return string(1, a[y][x]); // 배열의 첫번째 요소 string 값 반환
-
-	// 메인 로직
+string go(int y, int x, int size)
+{	
+	if (size == 1) return string(1, a[y][x]); // char 형을 string으로 만드는 함수 string(size, char);
 	char b = a[y][x];
 	string res = "";
-
 	for (int i = y; i < y + size; i++)
 	{
 		for (int j = x; j < x + size; j++)
@@ -28,27 +18,27 @@ string quad(int y, int x, int size)
 			if (b != a[i][j])
 			{
 				res += '(';
-				res += quad(y, x, size / 2);
-				res += quad(y, x + size / 2, size / 2);
-				res += quad(y + size / 2, x, size / 2);
-				res += quad(y + size / 2, x + size / 2, size / 2);
+				res += go(y, x, size / 2);
+				res += go(y, x + size / 2, size / 2);
+				res += go(y + size / 2, x, size / 2);
+				res += go(y + size / 2, x + size / 2, size / 2);
 				res += ')';
-				return res;
+				return res; // 압축이 안되는 경우
 			}
 		}
 	}
-	return string(1, a[y][x]);
+	return string(1, a[y][x]); // 압축이 되는 경우
 }
 
 int main()
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(NULL); cout.tie(NULL);
 
 	cin >> n;
-
 	for (int i = 0; i < n; i++)
 	{
+		string str;
 		cin >> str;
 		for (int j = 0; j < str.size(); j++)
 		{
@@ -56,18 +46,7 @@ int main()
 		}
 	}
 
-	/*
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			cout << a[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	*/
-
-	cout << quad(0, 0, n) << "\n";
+	cout << go(0, 0, n) << '\n';
 
 	return 0;
 }
