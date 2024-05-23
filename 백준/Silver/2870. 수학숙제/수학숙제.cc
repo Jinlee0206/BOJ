@@ -1,13 +1,11 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-
+// BOJ - 2870 :	수학숙제
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<string> vec;
+int n;
+vector<string> v;
 
-// 숫자 앞의 0을 제거 하는 Logic
 void go(string& tmp)
 {
 	while (true)
@@ -16,11 +14,11 @@ void go(string& tmp)
 		else break;
 	}
 	if (tmp.size() == 0) tmp = "0";
-	vec.push_back(tmp);
+	v.push_back(tmp);
 	tmp = "";
+	return;
 }
 
-// 문자열의 숫자 크기비교 커스텀 오퍼레이터
 bool cmp(string a, string b)
 {
 	if (a.size() == b.size()) return a < b;
@@ -30,9 +28,8 @@ bool cmp(string a, string b)
 int main()
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(NULL); cout.tie(NULL);
 
-	int n;
 	cin >> n;
 
 	for (int i = 0; i < n; i++)
@@ -40,21 +37,16 @@ int main()
 		string str;
 		cin >> str;
 		string tmp = "";
-		
-		bool flag= false;
-
-		for (int i = 0; i < str.size(); i++)
+		for (int j = 0; j < str.size(); j++)
 		{
-			if (isdigit(str[i])) tmp += str[i];
-			else if (tmp.size()) go(tmp);
+			if(isdigit(str[j])) tmp += str[j];
+			else if(tmp.size()) go(tmp);
 		}
-		// 숫자로 남고 끝났을 때 실행
 		if (tmp.size()) go(tmp);
 	}
+	sort(v.begin(), v.end(), cmp);
 
-	sort(vec.begin(), vec.end(), cmp);
-
-	for (auto i : vec) cout << i << "\n";
+	for (auto i : v) cout << i << '\n';
 
 	return 0;
 }
