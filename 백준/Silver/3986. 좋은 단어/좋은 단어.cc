@@ -1,29 +1,30 @@
+// BOJ - 3986 :	좋은 단어
+#define _CRT_SECURE_NO_WARNINGS
 #include <bits/stdc++.h>
-
 using namespace std;
 
+int n, cnt;
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+	
+	cin >> n;
+	while (n--)
+	{
+		string str;
+		cin >> str;
 
-    int n, cnt = 0;
-    cin >> n;
+		stack<char> stk;
 
-    for (int i = 0; i < n; i++)
-    {
-        stack<char> stk;
-        string str;
-        cin >> str;
+		for (int i = 0; i < str.size(); i++)
+		{
+			if (stk.size() && stk.top() == str[i]) stk.pop();
+			else stk.push(str[i]);
+		}
+		if (stk.empty()) cnt++;
+	}
+	cout << cnt << '\n';
 
-        for (int j = 0; j < str.size(); j++)
-        {
-            if (!stk.empty() && stk.top() == str[j]) stk.pop();
-            else stk.push(str[j]);
-        }
-        if (stk.empty()) cnt++;
-    }
-    cout << cnt << '\n';
-
-    return 0;
+	return 0;
 }
