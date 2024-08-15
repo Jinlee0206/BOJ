@@ -1,89 +1,67 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+// BOJ - 2583 :	영역 구하기
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
-int m, n, k, cnt = 0;
-int m_map[101][101];
-int visited[101][101];
+const int dy[] = { -1, 0 , 1, 0 };
+const int dx[] = { 0, 1, 0, -1 };
 
-const int dy[4] = { -1, 0, 1, 0 };
-const int dx[4] = { 0, -1, 0, 1 };
+int n, m, l, a[104][104], visited[104][104];
+vector<int> v;
 
-vector<int> vec;
-
-int DFS(int y, int x)
+int dfs(int y, int x)
 {
+	int res = 1;
 	visited[y][x] = 1;
 
-	int res = 1;
-
 	for (int i = 0; i < 4; i++)
-	{	
+	{
 		int ny = y + dy[i];
 		int nx = x + dx[i];
 
 		if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-
-		if (!visited[ny][nx] && m_map[ny][nx] != 1)
+		if (a[ny][nx] != 1 && !visited[ny][nx])
 		{
-			res += DFS(ny, nx);
+			res += dfs(ny, nx);
 		}
 	}
-
-	//cout << y << " : " << x << " " << res << "\n";
-
 	return res;
 }
 
 int main()
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(NULL); cout.tie(NULL);
 
-	cin >> m >> n >> k;
+	cin >> m >> n >> l;
 
-	for (int l = 0; l < k; l++)
+	for (int i = 0; i < l; i++)
 	{
 		int sx, sy, ex, ey;
 		cin >> sx >> sy >> ex >> ey;
-
-		for (int i = sx; i < ex; i++)
+		for (int j = sx; j < ex; j++)
 		{
-			for (int j = sy; j < ey; j++)
+			for (int k = sy; k < ey; k++)
 			{
-				m_map[i][j] = 1;
+				a[j][k] = 1;
 			}
 		}
 	}
-
-	// 디버깅
-	/*for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < m; j++)
-		{
-			cout << m_map[i][j] << " ";
-		}
-		cout << "\n";
-	}*/
 
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			if (m_map[i][j] != 1 && !visited[i][j])
+			if (a[i][j] != 1 && !visited[i][j])
 			{
-				vec.push_back(DFS(i, j));
+				v.push_back(dfs(i, j));
 			}
 		}
 	}
 
-	cout << vec.size() << "\n";
-
-	sort(vec.begin(), vec.end());
-
-	for (auto i : vec) cout << i << " ";
+	cout << v.size() << '\n';
+	sort(v.begin(), v.end());
+	for (auto i : v) cout << i << ' ';
 
 	return 0;
 }
