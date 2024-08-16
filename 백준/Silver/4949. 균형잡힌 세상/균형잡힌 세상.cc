@@ -1,16 +1,13 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
-#include <stack>
-
+// BOJ - 4949 : 균형잡힌 세상
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	
+	cout.tie(NULL);
+
 	while (true)
 	{
 		string str;
@@ -21,25 +18,35 @@ int main()
 		stack<char> stk;
 		bool flag = true;
 
-		for (int i = 0; i < str.length(); i++)
+		for (int i = 0; i < str.size(); i++)
 		{
 			if (str[i] == '(' || str[i] == '[') stk.push(str[i]);
-			
-			if (str[i] == ')')
+			else if (str[i] == ')')
 			{
-				if (stk.empty() || stk.top() == '[') flag = false;
-				else stk.pop();
+				if (stk.empty() || stk.top() == '[')
+				{
+					flag = false;
+					break;
+				}
+				else
+				{
+					stk.pop();
+				}
 			}
-
-			if (str[i] == ']')
+			else if (str[i] == ']')
 			{
-				if (stk.empty() || stk.top() == '(') flag = false;
+				if (stk.empty() || stk.top() == '(')
+				{
+					flag = false;
+					break;
+				}
 				else stk.pop();
 			}
 		}
-		if (flag && stk.empty()) cout << "yes" << "\n";
-		else cout << "no\n";
+		if (stk.empty() && flag) cout << "yes" << '\n';
+		else cout << "no" << '\n';
 	}
-
+	
 	return 0;
 }
+
